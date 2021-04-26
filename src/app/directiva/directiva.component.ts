@@ -7,9 +7,15 @@ import { Component } from '@angular/core';
 export class DirectivaComponent {
 
 
-  listaCurso: string[] = ['TypeScript', 'TypeScript', 'Java SE', 'C#', 'PHP']
+  listaCurso: string[] = ['TypeScript', 'TypeScript', 'Java SE', 'C#', 'PHP'];
+
+  habilitar: boolean = true;
 
   constructor() { }
+
+  setHabilitar(): void {
+    this.habilitar = (this.habilitar==true)? false: true
+  }
 
 
 }
