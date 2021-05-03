@@ -15,6 +15,7 @@ import { FormComponent } from './clientes/form.component';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localEs from '@angular/common/locales/es';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(localEs, 'es');
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
