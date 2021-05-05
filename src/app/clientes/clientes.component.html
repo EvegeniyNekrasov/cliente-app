@@ -1,5 +1,7 @@
 <!-- Creatingg a table with Bootstrap  -->
 
+<detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente> 
+
 <div class="card border-primary mb-3">
     <div class="card-header text-center text-dark "><h2>Clientes</h2></div>
     <div class="card-body text-primary">
@@ -31,7 +33,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td>{{cliente.id}}</td>
+                    <td><button type="button" (click)="abrirModal(cliente)" class="btn btn-success">{{cliente.id}}</button></td>
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.email}}</td>

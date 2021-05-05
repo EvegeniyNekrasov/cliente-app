@@ -3,7 +3,7 @@ import { formatDate} from '@angular/common';
 
 import { Cliente } from './cliente';
 import { Observable, throwError  } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { map, catchError, tap} from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -36,7 +36,7 @@ export class ClienteService {
     }
 
   
-
+  // ****************** GET CLIENTE **************************
   getCliente(id): Observable<Cliente>{
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
@@ -47,7 +47,8 @@ export class ClienteService {
       })
     );
   }
-
+  
+  // ****************** CREATE **************************
   create(cliente: Cliente) : Observable<Cliente>{
     return this.http.post<any>(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
       map((response: any) => response.cliente as Cliente),
@@ -63,7 +64,8 @@ export class ClienteService {
       })
     );
   }
-
+  
+  // ****************** UPDATE **************************
   update(cliente: Cliente): Observable<any>{
     return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`,
      cliente, {headers: this.httpHeaders}).pipe(
@@ -79,7 +81,9 @@ export class ClienteService {
       })
      )
   }
+  
 
+  // ****************** DELETE **************************
   delete(id: number): Observable<Cliente>{
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e => {
@@ -90,4 +94,17 @@ export class ClienteService {
     )
   }
 
+  // ****************** UPLOAD PHOTO **************************
+  subirFoto(archivo: File, id): Observable<HttpEvent<{}>> {
+
+    let formData = new FormData();
+    formData.append("archivo", archivo); // Mismo nombre que en Back-End @RequestParam("archivo")
+    formData.append("id", id);
+  
+    const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
+  }
 }
